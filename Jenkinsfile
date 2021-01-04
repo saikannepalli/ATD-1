@@ -81,8 +81,9 @@ node{
 		sh "sudo docker push us.gcr.io/mssdevops-284216/project2-${BUILD_NUMBER}" 
         }
     }
-    if((env.Branch_Name =~ '.*dev')) {
+    
 	    stage('Create Cluster GKE') {
+	 if((env.Branch_Name =~ '.*dev')) {
 	    withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
         sh "gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}"
 	sh "gcloud config set project ${projectname}"
